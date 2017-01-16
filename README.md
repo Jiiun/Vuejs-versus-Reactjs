@@ -44,7 +44,8 @@ CheckBox.prototype = {
 ##一个页面中多个input，Reactjs让你很蛋疼有木有##
 
 Reactjs和Vuejs如何拿多个input组件的value
-```Reactjs
+```
+Reactjs
 class Demo extends React.Component{
 	constructor(props){
   	super(props)
@@ -85,7 +86,8 @@ ReactDOM.render(
 );
 
 ```
-```Vuejs
+```
+Vuejs
 <div id="demo">
     <input 
       v-model="inputA"
