@@ -41,6 +41,74 @@ CheckBox.prototype = {
   
 }
 ```
+##一个页面中多个input，Reactjs让你很蛋疼有木有##
+
+Reactjs和Vuejs如何拿多个input组件的value
+```Reactjs
+class Demo extends React.Component{
+	constructor(props){
+  	super(props)
+    this.state={
+    	inputA: '',
+      inputB: ''
+    }
+  }
+  _onChangeA(e){
+  	this.setState({
+    	inputA: e.target.value
+    })
+  }
+  _onChangeB(e){
+  	this.setState({
+    	inputB: e.target.value
+    })
+  }
+  render() {
+    return (
+    	<div>
+      	<input 
+          onChange={this._onChangeA.bind(this)} 
+          value={this.state.inputA}
+          />
+        <input 
+          onChange={this._onChangeB.bind(this)} 
+          value={this.state.inputB}
+          />
+      </div>
+    );
+  }
+};
+
+ReactDOM.render(
+  <Demo/>,
+  document.getElementById('container')
+);
+
+```
+```Vuejs
+<div id="demo">
+    <input 
+      v-model="inputA"
+      :value="inputA"/>
+    <input 
+      v-model="inputB"
+      :value="inputB"
+      />
+    <button
+      @click="show"
+      >
+      show
+    </button>
+</div>
+
+new Vue({
+    el: '#demo',
+    data: {
+    	inputA: '',
+      inputB: ''
+    }
+})
+```
 ##Vue的前端模板功能强大，相对JSX语法更被接受
 ##Reactjs的组件像是UI组件，Vuejs的组件更接近对象
 ##父子组件间通信
