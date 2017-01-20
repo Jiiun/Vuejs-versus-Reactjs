@@ -1,4 +1,4 @@
-# Vuejs-and-Reactjs
+# Vuejs Comparison with Reactjs
 对比Vuejs和Reactjs这两个框架在开发过程中的区别
 今天这里要讨论的话题，不是前端框架技术哪家强，因为在[Vuejs官网](http://cn.vuejs.org/v2/guide/comparison.html#React)就已经有了比较全面客观的介绍，并且是中文的。
 ![preview](https://cloud.githubusercontent.com/assets/13991287/21755604/696f182c-d651-11e6-8026-145a10a475d2.png)
@@ -44,8 +44,8 @@ CheckBox.prototype = {
 ##一个页面中多个input，Reactjs让你很蛋疼有木有##
 
 Reactjs和Vuejs如何拿多个input组件的value
+#####Reactjs#####
 ```
-Reactjs
 class Demo extends React.Component{
 	constructor(props){
   	super(props)
@@ -86,8 +86,9 @@ ReactDOM.render(
 );
 
 ```
+#####Vuejs#####
 ```
-Vuejs
+html
 <div id="demo">
     <input 
       v-model="inputA"
@@ -103,15 +104,22 @@ Vuejs
     </button>
 </div>
 
+js
 new Vue({
     el: '#demo',
     data: {
-    	inputA: '',
+      inputA: '',
       inputB: ''
     }
 })
 ```
-##Vue的前端模板功能强大，相对JSX语法更被接受
-##Reactjs的组件像是UI组件，Vuejs的组件更接近对象
+由于Vuejs遵循mvvm模式，支持数据双向绑定，所以他只需在input组件中，v-model属性指向inputA、inputB，就完成了双向绑定。而React中的数据流是单向的，所以在不借助其他数据流框架的情况下，只能通过绑定dom事件来更新inputA、inputB。如果一个页面有多个input，Reactjs需要绑定多个事件。
+
+##JSX vs Templates##
+好吧，我承认标题是来自[Vue官网中对比其他框架的子标题](https://cn.vuejs.org/v2/guide/comparison.html#HTML-amp-CSS)。刚接触前端框架时，对这种页面预留一个div容器，把html模板拼凑好再一股脑塞进去的性能很担忧，大家都是过来人有木有！然后用惯了javascript 模板引擎，一直坚信视图与功能逻辑分离是正确的选择，突然看到JSX把html写在js里，觉得很low有木有！
+对于第一个问题，可能更多考虑的是首屏渲染的性能问题，首屏拼凑整个页面html字符串确实开销不小，但是构建SPA每个页面都是前端计算出来的，如果为了首屏另搞一套，维护性扩展性不是很好啦。
+对于JSX的偏见，[facebook已经给出了解释](http://reactjs.cn/react/docs/displaying-data.html#jsx-syntax)，在这里我想用四级刚好及格的水平，给大家翻译一下，意思是说
+##Reactjs的组件像是UI组件，Vuejs的组件更接近对象##
+Reactjs和Vuejs都有一个强大的功能，组件！组件可以扩展 HTML 元素，封装可重用的代码，提高了我们的开发效率。从维护成的角度，组件的质量决定了产品的质量，
 ##父子组件间通信
 ##Vuex和Redux
