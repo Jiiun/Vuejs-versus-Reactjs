@@ -117,8 +117,17 @@ new Vue({
 
 ##JSX vs Templates##
 好吧，我承认标题是来自[Vue官网中对比其他框架的子标题](https://cn.vuejs.org/v2/guide/comparison.html#HTML-amp-CSS)。刚接触前端框架时，对这种页面预留一个div容器，把html模板拼凑好再一股脑塞进去的性能很担忧，大家都是过来人有木有！然后用惯了javascript 模板引擎，一直坚信视图与功能逻辑分离是正确的选择，突然看到JSX把html写在js里，觉得很low有木有！
+
 对于第一个问题，可能更多考虑的是首屏渲染的性能问题，首屏拼凑整个页面html字符串确实开销不小，但是构建SPA每个页面都是前端计算出来的，如果为了首屏另搞一套，维护性扩展性不是很好啦。
-对于JSX的偏见，[facebook已经给出了解释](http://reactjs.cn/react/docs/displaying-data.html#jsx-syntax)，在这里我想用四级刚好及格的水平，给大家翻译一下，意思是说
+
+对于JSX的偏见，[facebook官方](http://reactjs.cn/react/docs/displaying-data.html#jsx-syntax)在最开始就给出了解释
+
+> We strongly believe that components are the right way to separate concerns rather than "templates" and "display logic." We think that markup and the code that generates it are intimately tied together. Additionally, display logic is often very complex and using template languages to express it becomes cumbersome.
+
+在这里结合我的理解翻译一下， Reactjs 团队坚信定义一个组件，正确的方法是通过功能或者关注点来区分，而不是前端模板或者展示逻辑。我们认为前端模板和组件代码是紧密相连的。另外，模板语言经常让展示的逻辑变得更复杂。
+
+看到这我欣然接受了，使用前端模板，有些逻辑写在模板里会更合理，但却违背了MVC原则，常常徘徊在这种不知所措的矛盾之间。React团队觉得这样问题更复杂，不如把模板和逻辑代码结合到一块。而开发者一开始不接受JSX，是受到传统js拼接字符串模板的死板方式影响，其实JSX比它更灵活。
+
 ##Reactjs的组件像是UI组件，Vuejs的组件更接近对象##
 Reactjs和Vuejs都有一个强大的功能，组件！组件可以扩展 HTML 元素，封装可重用的代码，提高了我们的开发效率。从维护成的角度，组件的质量决定了产品的质量，
 ##父子组件间通信
