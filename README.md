@@ -3,11 +3,12 @@
 今天这里要讨论的话题，不是前端框架技术哪家强，因为在[Vuejs官网](http://cn.vuejs.org/v2/guide/comparison.html#React)就已经有了比较全面客观的介绍，并且是中文的。
 ![preview](https://cloud.githubusercontent.com/assets/13991287/21755604/696f182c-d651-11e6-8026-145a10a475d2.png)
 
-上图是一月份前端框架的排名，Reactjs位居第一，Vuejs排名第三。还清晰记得，十月份进入该showcase并未看到Vuejs，可见Vuejs 2.0有多受欢迎，而排名第二的Angularjs当时位居第一，短短数月Reactjs，Vuejs都有了比较好的成绩，Angularjs的stars没什么增长，是否可以理解为，这段时间新出的项目都不再考虑Angular。
+上图是一月份前端框架的排名，Reactjs位居第一，Vuejs排名第三。还清晰记得，十月份进入该showcase并未看到Vuejs，可见Vuejs 2.0有多受欢迎，而排名第二的Angularjs当时位居第一，短短数月Reactjs，Vuejs都有了比较好的成绩，Angularjs的stars没什么增长，是否可以理解为，Angularjs正在慢慢地退出这个舞台。
 
-我也是在16年开始接触前端框架开发，对于今年关注度最高的Reactjs和Vuejs，想在这里谈谈在开发过程中的一些体会和差异
+我也是在16年开始接触前端框架开发，对于关注度最高的Reactjs和Vuejs，想在这里谈谈两个框架在开发风格上的体会。
 ##Vue语法很自由，很好上手
-声明一个Vue实例，与ES5中声明一个类，并使用prototype定义方法的方式很类似
+声明一个Vue实例，与ES5中声明一个类，并使用prototype定义方法的方式很类似。而Reactjs组件，需要先理解每个生命周期函数的意义，这多少需要些成本，在实际开发之前，总不能get到该在何时调用生命周期函数。
+
 #####Vuejs#####
 ```
 var CheckBox = Vue.extend({
@@ -41,32 +42,32 @@ CheckBox.prototype = {
   
 }
 ```
-##一个页面中多个input，Reactjs让你很蛋疼有木有##
+##表单在Reactjs中的蛋疼之处##
 
-Reactjs和Vuejs如何拿多个input组件的value
+Reactjs和Vuejs如何拿input的value，先上代码
 #####Reactjs#####
 ```
 class Demo extends React.Component{
-	constructor(props){
-  	super(props)
-    this.state={
-    	inputA: '',
-      inputB: ''
-    }
+  constructor(props){
+    super(props)
+      this.state={
+        inputA: '',
+        inputB: ''
+      }
   }
   _onChangeA(e){
-  	this.setState({
-    	inputA: e.target.value
+    this.setState({
+      inputA: e.target.value
     })
   }
   _onChangeB(e){
-  	this.setState({
-    	inputB: e.target.value
-    })
+    this.setState({
+      inputB: e.target.value
+    })
   }
   render() {
     return (
-    	<div>
+      <div>
       	<input 
           onChange={this._onChangeA.bind(this)} 
           value={this.state.inputA}
