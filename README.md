@@ -130,9 +130,63 @@ new Vue({
 [JSX和模板都是个人偏好问题，JSX在逻辑能力表达上完爆模板，但也很容易写出凌乱的render函数，不如模板直观。](https://www.zhihu.com/question/31585377)
 
 ##Reactjs的组件像是UI组件，Vuejs的组件更接近对象##
-Reactjs和Vuejs都有一个强大的功能，组件！组件可以扩展 HTML 元素，封装可重用的代码，提高了我们的开发效率。从维护成的角度，组件的质量决定了产品的质量，但是从组件的封装力度上，我更喜欢Vuejs。
+Reactjs和Vuejs都有一个强大的功能，组件！组件可以扩展 HTML 元素，封装可重用的代码，提高了我们的开发效率。从维护成的角度，组件的质量决定了产品的质量，但是从组件的封装力度上，我更喜欢Vuejs。我们先看看Vuejs是怎样创建一个List组件，父组件是如何调用的。
+#####Vuejs#####
+```html
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
 
+<div id="demo">
+  <input
+    :value="input"
+    v-model="input"
+    />
+  <button
+    @click="add"
+    >
+    add
+  </button>
+  <List
+    ref="list"
+  />
+</div>
 ```
 
+```js
+var List = Vue.extend({
+	props: {
+  	list: {
+    	type: Array,
+      default: function(){return []}
+    }
+  },
+	template:'<div><ul v-for="(item, index) in list"><li>{{item.name}} <i @click="deleteItem(item, index)">delete</i></li></ul></div>',
+  data: function(){
+  	return{
+    	input: ''
+    }
+  },
+  methods: {
+  	addItem: function(name){
+    	this.list.push({name: name})
+    },
+  	deleteItem: function(item, index){
+    	this.list.splice(index, 1)
+    }
+  }
+})
+
+Vue.component('List',List)
+
+new Vue({
+    el: '#demo',
+    data: {
+    	input: ''
+    },
+    methods: {
+    	add: function(){
+      	this.$refs.list.addItem(this.input)
+      }
+    }
+})
 ```
 ##父子组件间通信
