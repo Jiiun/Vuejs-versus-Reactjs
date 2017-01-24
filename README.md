@@ -189,4 +189,82 @@ new Vue({
     }
 })
 ```
+#####再看看Reactjs是怎么做的#####
+```
+class List extends React.Component{
+  _delete(index){
+    this.props.onDelete && this.props.onDelete(index)
+  }
+  render() {
+    return (
+    	<ul>
+      {
+      	this.props.list.map((item, index)=>{
+          return (
+            <li 
+              key={index}
+            >
+             	{item} 
+              <i onClick={this._delete.bind(this, index)}>
+              	delete
+              </i>							
+            </li>
+          )
+        })
+      }
+      </ul>
+    );
+  }
+};
+
+class Page extends React.Component{
+  constructor(props){
+    super(props)
+    this.state={
+    	input: '',
+      list: []
+    }
+  }
+  _bindChange(e){
+    this.setState({
+      input: e.target.value
+    })
+  }
+  _add(){
+    this.state.list.push(this.state.input)
+    this.forceUpdate()
+  }
+  _delete(index){
+    this.state.list.splice(index, 1)
+    this.forceUpdate()
+  }
+  render() {
+    return (
+      <div>
+        <input
+          onChange={this._bindChange.bind(this)}
+          value={this.state.input}
+          />
+        <button
+          onClick={this._add.bind(this)}
+          >
+          add
+        </button>
+        <List
+          list={this.state.list}
+          onDelete={this._delete.bind(this)}
+        />
+      </div>
+    );
+  }
+};
+
+ReactDOM.render(
+  <Page/>,
+  document.getElementById('container')
+);
+```
+通过上面两段代码可以看出，在调用List组件的时候，Reactjs比Vuejs复杂的多，不仅仅是多了onChange，包括新增和删除的逻辑，都必须在父组件中实现，这样会导致项目中有多个地方调用List组件，都必须实现这套相似的逻辑，而这套逻辑在Vuejs中是封装在组件里的，所以给我的感觉，Reactjs像UI组件，而Vuejs更接近对象。
+
+从实现的角度，其实Vuejs比Reactjs多了ref属性，实际上Reactjs也有[ref](http://reactjs.cn/react/docs/more-about-refs.html#the-ref-string-attribute)，但facebook并不推荐这种写法，原因在这个[commit](https://github.com/facebook/react/commit/5ee8a93280987bf1547687f5d8665be89058f321#all_commit_comments)给大家回复了
 ##父子组件间通信
