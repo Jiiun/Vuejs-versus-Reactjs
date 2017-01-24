@@ -266,5 +266,5 @@ ReactDOM.render(
 ```
 通过上面两段代码可以看出，在调用List组件的时候，Reactjs比Vuejs复杂的多，不仅仅是多了onChange，包括新增和删除的逻辑，都必须在父组件中实现，这样会导致项目中有多个地方调用List组件，都必须实现这套相似的逻辑，而这套逻辑在Vuejs中是封装在组件里的，所以给我的感觉，Reactjs像UI组件，而Vuejs更接近对象。
 
-从实现的角度，其实Vuejs比Reactjs多了ref属性，实际上Reactjs也有[ref](http://reactjs.cn/react/docs/more-about-refs.html#the-ref-string-attribute)，但facebook并不推荐这种写法，原因在这个[commit](https://github.com/facebook/react/commit/5ee8a93280987bf1547687f5d8665be89058f321#all_commit_comments)给大家回复了
+从实现的角度，其实Vuejs比Reactjs多了ref属性，实际上Reactjs也有[ref](http://reactjs.cn/react/docs/more-about-refs.html#the-ref-string-attribute)，但facebook推荐ref指向ycallback而不是string，原因在这个[commit](https://github.com/facebook/react/commit/5ee8a93280987bf1547687f5d8665be89058f321#all_commit_comments)给出回复
 ##父子组件间通信
