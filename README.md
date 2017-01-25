@@ -1,5 +1,6 @@
-# Vuejs Comparison with Reactjs
+# Reactjs Comparison with Vuejs
 从开发风格上对比Vuejs和Reactjs
+
 今天这里要讨论的话题，不是前端框架技术哪家强，因为在[Vuejs官网](http://cn.vuejs.org/v2/guide/comparison.html#React)就已经有了比较全面客观的介绍，并且是中文的。
 ![框架排名](https://cloud.githubusercontent.com/assets/13991287/21755604/696f182c-d651-11e6-8026-145a10a475d2.png)
 
