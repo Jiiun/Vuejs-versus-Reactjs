@@ -1,7 +1,7 @@
 # Vuejs Comparison with Reactjs
 从开发风格上对比Vuejs和Reactjs
 今天这里要讨论的话题，不是前端框架技术哪家强，因为在[Vuejs官网](http://cn.vuejs.org/v2/guide/comparison.html#React)就已经有了比较全面客观的介绍，并且是中文的。
-![preview](https://cloud.githubusercontent.com/assets/13991287/21755604/696f182c-d651-11e6-8026-145a10a475d2.png)
+![框架排名](https://cloud.githubusercontent.com/assets/13991287/21755604/696f182c-d651-11e6-8026-145a10a475d2.png)
 
 上图是一月份前端框架的排名，Reactjs位居第一，Vuejs排名第三。还清晰记得，去年十月份进入该showcase并未看到Vuejs，可见Vuejs 2.0有多受欢迎，而排名第二的Angularjs当时位居第一，短短数月Reactjs，Vuejs都有了比较好的成绩，Angularjs的stars没什么增长，是否可以理解为，Angularjs正在慢慢地退出这个舞台。
 
@@ -128,8 +128,8 @@ new Vue({
 
 [JSX和模板都是个人偏好问题，JSX在逻辑能力表达上完爆模板，但也很容易写出凌乱的render函数，不如模板直观。](https://www.zhihu.com/question/31585377)
 
-##Reactjs的组件像是UI组件，Vuejs的组件更接近对象##
-Reactjs和Vuejs都有一个强大的功能，组件！组件可以扩展 HTML 元素，封装可重用的代码，提高了我们的开发效率。从维护成的角度，组件的质量决定了产品的质量，但是从组件的封装力度上，我更喜欢Vuejs。我们先看看Vuejs是怎样创建一个List组件，父组件是如何调用的。
+##Reactjs为什么很少用ref##
+我是先用了Vuejs再用Reactjs的，它们都有一个强大的功能，组件！组件可以扩展 HTML 元素，封装可重用的代码，提高了我们的开发效率。从维护成的角度，组件的质量决定了产品的质量，但是从组件的封装力度上，我一开始更喜欢Vuejs，甚至还得出了这样的结论：Reactjs组件像是UI组件，Vuejs组件更接近对象。直到最近看了facebook文档，才发现另有蹊跷。先看看之前用Vuejs，我是如何去创建一个List组件，并且父组件是如何调用的。
 #####Vuejs#####
 ```html
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
@@ -152,23 +152,23 @@ Reactjs和Vuejs都有一个强大的功能，组件！组件可以扩展 HTML �
 
 ```javascript
 var List = Vue.extend({
-	props: {
-  	list: {
-    	type: Array,
+  props: {
+    list: {
+      type: Array,
       default: function(){return []}
     }
   },
-	template:'<div><ul v-for="(item, index) in list"><li>{{item.name}} <i @click="deleteItem(item, index)">delete</i></li></ul></div>',
+  template:'<div><ul v-for="(item, index) in list"><li>{{item.name}} <i @click="deleteItem(item, index)">delete</i></li></ul></div>',
   data: function(){
-  	return{
+    return{
     	input: ''
     }
   },
   methods: {
-  	addItem: function(name){
+    addItem: function(name){
     	this.list.push({name: name})
     },
-  	deleteItem: function(item, index){
+    deleteItem: function(item, index){
     	this.list.splice(index, 1)
     }
   }
@@ -179,11 +179,11 @@ Vue.component('List',List)
 new Vue({
     el: '#demo',
     data: {
-    	input: ''
+      input: ''
     },
     methods: {
-    	add: function(){
-      	this.$refs.list.addItem(this.input)
+      add: function(){
+        this.$refs.list.addItem(this.input)
       }
     }
 })
@@ -196,7 +196,7 @@ class List extends React.Component{
   }
   render() {
     return (
-    	<ul>
+      <ul>
       {
       	this.props.list.map((item, index)=>{
           return (
@@ -220,7 +220,7 @@ class Page extends React.Component{
   constructor(props){
     super(props)
     this.state={
-    	input: '',
+      input: '',
       list: []
     }
   }
@@ -265,10 +265,9 @@ ReactDOM.render(
 ```
 通过上面两段代码可以看出，在调用List组件的时候，Reactjs比Vuejs复杂的多，不仅仅是多了onChange，包括新增和删除的逻辑，都必须在父组件中实现，这样会导致项目中有多个地方调用List组件，都必须实现这套相似的逻辑，而这套逻辑在Vuejs中是封装在组件里的，所以给我的感觉，Reactjs像UI组件，而Vuejs更接近对象。
 
-细心的同学可能发现了，Reactjs也有[ref属性](http://reactjs.cn/react/docs/more-about-refs.html#the-ref-callback-attribute)，但facebook推荐ref指向ycallback而不是string，原因在这个[commit](https://github.com/facebook/react/commit/5ee8a93280987bf1547687f5d8665be89058f321#all_commit_comments)给出回复
-
-我在官网也看到这样一段话
-> When attaching a ref to a DOM component like < div />, you get the DOM node back; when attaching a ref to a composite component like \<TextInput />, you'll get the React class instance. In the latter case, you can call methods on that component if any are exposed in its class definition.<div />
-Note that when the referenced component is unmounted and whenever the ref changes, the old ref will be called with null as an argument. This prevents memory leaks in the case that the instance is stored, as in the second example. Also note that when writing refs with inline function expressions as in the examples here, React sees a different function object each time so on every update, ref will be called with null immediately before it's called with the component instance.
-ref可以调用组件的公有方法，需要注意的是，当组件销毁的时候，ref指向null
+细心的同学可能发现了，Reactjs也有[ref属性](http://reactjs.cn/react/docs/more-about-refs.html#the-ref-callback-attribute)，它可以让父组件调用子组件的方法，但实际项目中却很少看到，为什么大家都这么一致呢？我查了一下文档，[原来facebook不推荐过度使用ref](https://facebook.github.io/react/docs/refs-and-the-dom.html#dont-overuse-refs)
+>Your first inclination may be to use refs to "make things happen" in your app. If this is the case, take a moment and think more critically about where state should be owned in the component hierarchy. Often, it becomes clear that the proper place to "own" that state is at a higher level in the hierarchy. See the Lifting State Up guide for examples of this.
+官方还有个[栗子](https://facebook.github.io/react/docs/lifting-state-up.html)，这里我也举个比较常见的
+![举个栗子](https://cloud.githubusercontent.com/assets/13991287/22298063/2b702c1c-e35a-11e6-81e5-503452256480.png)
+基于上面的栗子，比如现在列表数据多啦！需要显示列表数据的条数！我们可以抽离一个显示条数的组件Counts。如果按照Vuejs的实现方法（好吧！这里好像在黑Vuejs，其实是我的误解），该组件会有plus()和minus()方法，每新增一条数据，需要在父组件的add()中显示调用Counts.plus()来update计数，删除时也需要在List中dispatch一个事件，告诉父组件已经delete，父组件收到通知，再显示调用Counts.minus()进行update，且不说这Counts组件复杂，这数据流来来回回的，代码放久了回来都要看好久才明白！但是Reactjs的实现方法就没有这个问题，Counts组件只需要一个count属性代表显示的数字，父组件把this.state.list.length传入就可以了，这种方式是不是很清晰。虽然Reactjs的这种方式，在不需要与其他组件共享数据的时候，调用起来确实很繁琐，但业务这种事情真的很难说，很多意想不到的情况都会发生，上面的栗子，指不定后期还要新加一个分页组件呢，所以我也悬崖勒马，以后不管在Vuejs中还是Reactjs，都少用ref，给自己的代码留条后路！
 ##父子组件间通信
