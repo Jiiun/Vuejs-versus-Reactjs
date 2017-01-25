@@ -14,43 +14,14 @@ Vuejs的语法很自由，它的上手快体现在：
 - 不需要认识太多的生命周期函数，可能只知道mounted（Vuejs1.0叫做ready）就可以上车
 - 熟悉的前端模板
 
-上面这些，从入门一个框架的角度看，已经比Reactjs少了很多东西。
+从入门学习一个框架的角度看，少了一些规则，门槛就降低了。
 
-Vuejs很自由，比如slot，可以大尺度地扩展组件（但也不要过度使用哦）。
+Vuejs很自由，比如：
+- slot，可以大尺度地扩展组件（但也不要过度使用哦）
+- v-model，mvvm的方式处理表单更方便
 
-#####Vuejs#####
-```javascript
-var CheckBox = Vue.extend({
-  props: {
-    isChecked: {
-      type: Bollean,
-      default: false
-    }
-  },
-  getValue: function(){
-    return this.isChecked;
-  },
-  setValue: function(val){
-    this.isChecked = val;
-  }
-})
-```
-#####ES5 类#####
-```javascript
-function CheckBox(config){
-  this.isChecked = config.isChecked || false;
-}
-CheckBox.prototype = {
-  constructor: CheckBox,
-  getValue: function(){
-    return this.isChecked;
-  },
-  setValue: function(val){
-    this.isChecked = val;
-  }
-  
-}
-```
+##父子组件间通信
+
 ##表单在Reactjs中的蛋疼之处##
 
 Reactjs和Vuejs如何拿input的value，先上代码
@@ -285,4 +256,4 @@ ReactDOM.render(
 基于上面的栗子，比如现在列表数据多啦！需要在列表顶部显示有多少条数据！我们可以定义一个显示条数的组件Counts。如果按照Vuejs的实现方法（好吧！这里好像在黑Vuejs，其实是我一开始的误解），该组件会有plus()和minus()方法，每新增一条数据，需要在父组件的add()中显示调用Counts.plus()来update计数，删除时也需要在List中dispatch一个事件，告诉父组件已经delete，父组件收到通知，再显示调用Counts.minus()进行update，且不说这Counts组件复杂，这数据流来来回回的，代码放久了回来看都晕晕的！但是Reactjs的实现方法就没有这个问题，Counts组件只需要一个count属性代表显示的数字，父组件把this.state.list.length作为参数传入就可以了，这种方式就是是不是很清晰。虽然Reactjs的这种方式，在不需要与其他组件共享数据的时候，调用起来确实很繁琐，但业务这种事情真的很难说，很多意想不到的情况都会发生，上面的栗子，指不定后期还要新加一个分页组件呢，所以我也悬崖勒马，以后不管在Vuejs中还是Reactjs，都少用ref，给自己的代码留条后路！
 
 上面不是在黑Vuejs，只不过是在对比两种实现组件的方式！总结一下，当组件之间有共享数据时，该数据与操作该数据的逻辑，应该放在最接近它们的父组件，这样子组件的逻辑会更合理，更清晰。
-##父子组件间通信
+
