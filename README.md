@@ -10,7 +10,7 @@
 声明一个Vue实例，与ES5中声明一个类，并使用prototype定义方法的方式很类似。而Reactjs组件，需要先理解每个生命周期函数的意义，这多少需要些成本，在实际开发之前，总不能get到该在何时调用生命周期函数。
 
 #####Vuejs#####
-```
+```javascript
 var CheckBox = Vue.extend({
   props: {
     isChecked: {
@@ -27,7 +27,7 @@ var CheckBox = Vue.extend({
 })
 ```
 #####ES5 类#####
-```
+```javascript
 function CheckBox(config){
   this.isChecked = config.isChecked || false;
 }
@@ -46,7 +46,7 @@ CheckBox.prototype = {
 
 Reactjs和Vuejs如何拿input的value，先上代码
 #####Reactjs#####
-```
+```jsx
 class Demo extends React.Component{
   constructor(props){
     super(props)
@@ -88,8 +88,7 @@ ReactDOM.render(
 
 ```
 #####Vuejs#####
-```
-html
+```html
 <div id="demo">
     <input 
       v-model="inputA"
@@ -104,8 +103,8 @@ html
       show
     </button>
 </div>
-
-js
+```
+```javascript
 new Vue({
     el: '#demo',
     data: {
@@ -151,7 +150,7 @@ Reactjs和Vuejs都有一个强大的功能，组件！组件可以扩展 HTML �
 </div>
 ```
 
-```js
+```javascript
 var List = Vue.extend({
 	props: {
   	list: {
@@ -190,7 +189,7 @@ new Vue({
 })
 ```
 #####再看看Reactjs是怎么做的#####
-```javascript
+```jsx
 class List extends React.Component{
   _delete(index){
     this.props.onDelete && this.props.onDelete(index)
