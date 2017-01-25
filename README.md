@@ -190,7 +190,7 @@ new Vue({
 })
 ```
 #####再看看Reactjs是怎么做的#####
-```
+```javascript
 class List extends React.Component{
   _delete(index){
     this.props.onDelete && this.props.onDelete(index)
@@ -269,7 +269,7 @@ ReactDOM.render(
 细心的同学可能发现了，Reactjs也有[ref属性](http://reactjs.cn/react/docs/more-about-refs.html#the-ref-callback-attribute)，但facebook推荐ref指向ycallback而不是string，原因在这个[commit](https://github.com/facebook/react/commit/5ee8a93280987bf1547687f5d8665be89058f321#all_commit_comments)给出回复
 
 我在官网也看到这样一段话
-> When attaching a ref to a DOM component like <div />, you get the DOM node back; when attaching a ref to a composite component like <TextInput />, you'll get the React class instance. In the latter case, you can call methods on that component if any are exposed in its class definition.
+> When attaching a ref to a DOM component like <div />, you get the DOM node back; when attaching a ref to a composite component like <TextInput />, you'll get the React class instance. In the latter case, you can call methods on that component if any are exposed in its class definition.<div />
 Note that when the referenced component is unmounted and whenever the ref changes, the old ref will be called with null as an argument. This prevents memory leaks in the case that the instance is stored, as in the second example. Also note that when writing refs with inline function expressions as in the examples here, React sees a different function object each time so on every update, ref will be called with null immediately before it's called with the component instance.
 ref可以调用组件的公有方法，需要注意的是，当组件销毁的时候，ref指向null
 ##父子组件间通信
