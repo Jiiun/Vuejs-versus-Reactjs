@@ -266,11 +266,10 @@ ReactDOM.render(
 ```
 通过上面两段代码可以看出，在调用List组件的时候，Reactjs比Vuejs复杂的多，不仅仅是多了onChange，包括新增和删除的逻辑，都必须在父组件中实现，这样会导致项目中有多个地方调用List组件，都必须实现这套相似的逻辑，而这套逻辑在Vuejs中是封装在组件里的，所以给我的感觉，Reactjs像UI组件，而Vuejs更接近对象。
 
-从实现的角度，其实Vuejs比Reactjs多了ref属性，实际上Reactjs也有[ref](http://reactjs.cn/react/docs/more-about-refs.html#the-ref-string-attribute)，但facebook推荐ref指向ycallback而不是string，原因在这个[commit](https://github.com/facebook/react/commit/5ee8a93280987bf1547687f5d8665be89058f321#all_commit_comments)给出回复
+细心的同学可能发现了，Reactjs也有[ref属性](http://reactjs.cn/react/docs/more-about-refs.html#the-ref-callback-attribute)，但facebook推荐ref指向ycallback而不是string，原因在这个[commit](https://github.com/facebook/react/commit/5ee8a93280987bf1547687f5d8665be89058f321#all_commit_comments)给出回复
 
 我在官网也看到这样一段话
 > When attaching a ref to a DOM component like <div />, you get the DOM node back; when attaching a ref to a composite component like <TextInput />, you'll get the React class instance. In the latter case, you can call methods on that component if any are exposed in its class definition.
-
 Note that when the referenced component is unmounted and whenever the ref changes, the old ref will be called with null as an argument. This prevents memory leaks in the case that the instance is stored, as in the second example. Also note that when writing refs with inline function expressions as in the examples here, React sees a different function object each time so on every update, ref will be called with null immediately before it's called with the component instance.
 ref可以调用组件的公有方法，需要注意的是，当组件销毁的时候，ref指向null
 ##父子组件间通信
