@@ -1,23 +1,22 @@
 # Reactjs Comparison with Vuejs
-这里要讨论的话题，不是前端框架技术哪家强，因为在[Vuejs官网](http://cn.vuejs.org/v2/guide/comparison.html#React)就已经有了比较全面客观的介绍，并且是中文的。
+这里要讨论的话题，不是前端框架哪家强，因为在[Vuejs官网](http://cn.vuejs.org/v2/guide/comparison.html#React)就已经有了比较全面客观的介绍，并且是中文的。
 ![框架排名](https://cloud.githubusercontent.com/assets/13991287/21755604/696f182c-d651-11e6-8026-145a10a475d2.png)
 
-上图是一月份前端框架的排名，Reactjs位居第一，Vuejs排名第三。还清晰记得，去年十月份进入该showcase并未看到Vuejs，可见Vuejs 2.0有多受欢迎，而排名第二的Angularjs当时位居第一，短短数月Reactjs，Vuejs都有了比较好的成绩，Angularjs的stars没什么增长，是否可以理解为，Angularjs正在慢慢地退出这个舞台。
+上图是一月份前端框架排名，Reactjs位居第一，Vuejs排名第三。还清晰记得，16年十月份进入该showcase并未看到Vuejs，可见Vuejs 2.0有多受欢迎，而排名第二的Angularjs当时位居第一，短短数月Reactjs，Vuejs都有了比较好的成绩，Angularjs的stars没什么增长，是否可以理解为，Angularjs正在慢慢地退出这个舞台。
 
-我是在16年开始接触前端框架开发，对于关注度最高的Reactjs和Vuejs，想在这里谈谈两个框架在开发风格上的差异。
-##Vue更容易上手##
-这是真的吗？我书读的少，作者你是想支持国产吗？
+对于关注度最高的Reactjs和Vuejs，想在这里谈谈两个框架在开发风格上的差异。Vuejs升级到[2.0](https://cn.vuejs.org/v2/guide/migration.html#FAQ)之后，有越来越多的特性向Reactjs靠近，导致我可以写的东西越来越少。
+##Vuejs更容易上手##
+Vuejs更容易上手！这是真的吗？我书读的少，作者是想支持国产吗？
 
-Vuejs的语法很自由，它的上手快体现在：
+Vuejs的语法很自由，比如：
 - 不需要分清state和props的区别，反正this都可以get
-- 不需要认识太多的生命周期函数，可能只知道mounted（Vuejs1.0叫做ready）就可以上车
+- 不需要认识太多的生命周期函数，可能只关心mounted和Vue.nextTick（保证this.$el在document中）
 - 熟悉的前端模板
-
-从入门学习一个框架的角度看，少了一些规则，门槛就降低了。
-
-Vuejs很自由，比如：
+- 父子组件间通信更灵活
 - slot，可以大尺度地扩展组件（但也不要过度使用哦）
 - v-model，mvvm的方式处理表单更方便
+
+从入门学习一个框架的角度看，少了一些规则，门槛就降低了。
 
 ##表单在Reactjs中的蛋疼之处##
 
@@ -90,7 +89,7 @@ new Vue({
     }
 })
 ```
-由于Vuejs遵循mvvm模式支持数据双向绑定，v-model说白了就是（value的单向绑定 + onChange事件监听）的语法糖，但这个味道我喜欢。比起在Reactjs表单需要绑定多个onChange事件确实要方便得多。前提是不引入第三方架构（FLUX/Redux）下进行对比的，现实中也有很多项目是这样的。
+由于Vuejs遵循mvvm模式支持数据双向绑定，v-model说白了就是（value的单向绑定 + onChange事件监听）的语法糖，但这个味道还不错吧。比起在Reactjs表单需要绑定多个onChange事件确实要方便得多。前提是不引入第三方架构（FLUX/Redux）下进行对比的，现实中也有很多项目是这样的。
 
 ##父子组件间通信
 ##JSX vs Templates##
