@@ -89,9 +89,11 @@ new Vue({
     }
 })
 ```
-由于Vuejs遵循mvvm模式支持数据双向绑定，v-model说白了就是（value的单向绑定 + onChange事件监听）的语法糖，但这个味道还不错吧。比起在Reactjs表单需要绑定多个onChange事件确实要方便得多。前提是不引入第三方架构（FLUX/Redux）下进行对比的，现实中也有很多项目是这样的。
+由于Vuejs遵循mvvm模式支持数据双向绑定，v-model说白了就是（value的单向绑定 + onChange事件监听）的语法糖，但这个味道还不错吧。比起在Reactjs表单需要绑定多个onChange事件确实要方便得多。前提是不引入第三方架构（FLUX/Redux）下进行对比的，现实中在创建中大型单页面应用才会用到这些框架。
 
 ##父子组件间通信
+
+写到这我竟然有点不知所措，因为Vuejs2.0已经[废弃dispatch](https://cn.vuejs.org/v2/guide/migration.html#dispatch-和-broadcast-替换)，这个之前让我一直很喜欢，觉得在父子组件间通信能力完爆Reactjs的特性，由于基于组件树结构的事件流方式让人难以理解，并且在组件结构扩展过程中变得越来越脆弱，如果构建小型应用，建议使用[global event bus](http://vuejs.org/v2/guide/components.html#Non-Parent-Child-Communication)，它还可以有效地解决兄弟节点之间的通信问题，但个人觉得除了这点，其它都比dispatch low，因为你不知道当前监听的事件是哪里emit的而要全局搜索代码。
 ##JSX vs Templates##
 刚接触Reactjs，因为用惯了javascript 模板引擎，一直坚信视图与功能逻辑分离是正确的选择，突然看到JSX把html写在js里，内心是拒绝的！
 
@@ -250,7 +252,7 @@ ReactDOM.render(
 
 ![举个栗子](https://cloud.githubusercontent.com/assets/13991287/22298063/2b702c1c-e35a-11e6-81e5-503452256480.png)
 
-基于上面的栗子，比如现在列表数据多啦！需要在列表顶部显示有多少条数据！我们可以定义一个显示条数的组件Counts。如果按照Vuejs的实现方法（好吧！这里好像在黑Vuejs，其实是我一开始的误解），该组件会有plus()和minus()方法，每新增一条数据，需要在父组件的add()中显示调用Counts.plus()来update计数，删除时也需要在List中dispatch一个事件，告诉父组件已经delete，父组件收到通知，再显示调用Counts.minus()进行update，且不说这Counts组件复杂，这数据流来来回回的，代码放久了回来看都晕晕的！但是Reactjs的实现方法就没有这个问题，Counts组件只需要一个count属性代表显示的数字，父组件把this.state.list.length作为参数传入就可以了，这种方式就是是不是很清晰。虽然Reactjs的这种方式，在不需要与其他组件共享数据的时候，调用起来确实很繁琐，但业务这种事情真的很难说，很多意想不到的情况都会发生，上面的栗子，指不定后期还要新加一个分页组件呢，所以我也悬崖勒马，以后不管在Vuejs中还是Reactjs，都少用ref，给自己的代码留条后路！
+基于上面的栗子，比如现在列表数据多啦！需要在列表顶部显示有多少条数据！我们可以定义一个显示条数的组件Counts。如果按照Vuejs的实现方法（好吧！这里好像在黑Vuejs，其实是我一开始的误解），Counts组件要监听两个事件（plus & minus），在事件中更新条数，当List进行add()或delete()需要emit plus/minus，且不说这Counts组件复杂，这事件流很难追溯，代码放久了看着都晕晕的！但是Reactjs的实现方法就没有这个问题，Counts组件只需要一个count属性代表显示的数字，父组件把this.state.list.length作为参数传入就可以了，这种方式就是是不是很清晰。虽然Reactjs的这种方式，在不需要与其他组件共享数据的时候，调用起来确实很繁琐，但业务这种事情真的很难说，很多意想不到的情况都会发生，上面的栗子，指不定后期还要新加一个分页组件呢，所以我也悬崖勒马，以后不管在Vuejs中还是Reactjs，都少用ref，给自己的代码留条后路！
 
 上面不是在黑Vuejs，只不过是在对比两种实现组件的方式！总结一下，当组件之间有共享数据时，该数据与操作该数据的逻辑，应该放在最接近它们的父组件，这样子组件的逻辑会更合理，更清晰，而使用ref会违背这个规则。
 
