@@ -89,7 +89,7 @@ new Vue({
     }
 })
 ```
-由于Vuejs遵循mvvm模式支持数据双向绑定，v-model说白了就是（value的单向绑定 + onChange事件监听）的语法糖，但这个味道还不错吧。比起在Reactjs表单需要绑定多个onChange事件确实要方便得多。前提是不引入第三方架构（FLUX/Redux）下进行对比的，现实中在创建中大型单页面应用才会用到这些框架。
+由于Vuejs遵循mvvm模式，v-model属性支持数据双向绑定，v-model说白了就是（value的单向绑定 + onChange事件监听）的语法糖，但这个味道还不错吧。比起在Reactjs表单需要绑定多个onChange事件确实要方便得多。前提是不引入第三方架构（FLUX/Redux）下进行对比的，现实中在创建中大型单页面应用才会用到这些框架。
 
 ##父子组件间通信
 
