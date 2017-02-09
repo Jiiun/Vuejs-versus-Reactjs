@@ -9,7 +9,7 @@
 Vuejs更容易上手！这是真的吗？我书读的少，作者是想支持国产吗？
 
 Vuejs的语法很自由，比如：
-- 不需要分清state和props的区别，反正this都可以get
+- state和props都一起放在this中
 - 不需要认识太多的生命周期函数，可能只关心mounted和Vue.nextTick（保证this.$el在document中）
 - 熟悉的前端模板
 - 父子组件间通信更灵活
@@ -89,11 +89,12 @@ new Vue({
     }
 })
 ```
-由于Vuejs遵循mvvm模式，v-model属性支持数据双向绑定，v-model说白了就是（value的单向绑定 + onChange事件监听）的语法糖，但这个味道还不错吧。比起在Reactjs表单需要绑定多个onChange事件确实要方便得多。前提是不引入第三方架构（FLUX/Redux）下进行对比的，现实中在创建中大型单页面应用才会用到这些框架。
+Vuejs的v-model属性支持数据双向绑定，说白了v-model就是（value的单向绑定 + onChange事件监听）的语法糖，但这个味道还不错吧。比起在Reactjs表单需要绑定多个onChange事件确实要方便得多。前提是不引入第三方架构（FLUX/Redux）下进行对比的，现实中在创建中大型单页面应用才会用到这些框架。
 
 ##父子组件间通信
 
-写到这我竟然有点不知所措，因为Vuejs2.0已经[废弃dispatch](https://cn.vuejs.org/v2/guide/migration.html#dispatch-和-broadcast-替换)，这个之前让我一直很喜欢，觉得在父子组件间通信能力完爆Reactjs的特性，由于基于组件树结构的事件流方式让人难以理解，并且在组件结构扩展过程中变得越来越脆弱，如果构建小型应用，建议使用[global event bus](http://vuejs.org/v2/guide/components.html#Non-Parent-Child-Communication)，它还可以有效地解决兄弟节点之间的通信问题，但个人觉得除了这点，其它都比dispatch low，因为你不知道当前监听的事件是哪里emit的而要全局搜索代码。
+父组件通知子组件都是通过 prop 逐层传递，而子组件向上通信的方式就有些差异。Reactjs通过调用父组件传进来的函数，并把通知的信息作为该函数的参数（Vuejs也可以做到），这样做的坏处是，当组件跨层级通信时，只能将函数逐层往下传递，过程比较繁琐。而 Vuejs 通过（监听 + 派发）事件的方式实现通信，这样当组件跨级通信时就比较方便，dispatch 的特点是可以将消息逐层往上派发，直到触发某一个监听函数。
+但写到这我竟有点不知所措，因为Vuejs2.0已经[废弃dispatch](https://cn.vuejs.org/v2/guide/migration.html#dispatch-和-broadcast-替换)，这个之前让我一直很喜欢，觉得在父子组件间通信能力完爆Reactjs的特性，由于基于组件树结构的事件流方式让人难以理解，并且在组件结构扩展过程中变得越来越脆弱，如果构建小型应用，建议使用[global event bus](http://vuejs.org/v2/guide/components.html#Non-Parent-Child-Communication)，它还可以有效地解决兄弟节点之间的通信问题，但个人觉得除了这点，其它都比dispatch low，因为你不知道当前监听的事件是哪里emit的而要全局搜索代码。
 ##JSX vs Templates##
 刚接触Reactjs，因为用惯了javascript 模板引擎，一直坚信视图与功能逻辑分离是正确的选择，突然看到JSX把html写在js里，内心是拒绝的！
 
