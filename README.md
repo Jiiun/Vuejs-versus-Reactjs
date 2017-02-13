@@ -2,7 +2,7 @@
 这里要讨论的话题，不是前端框架哪家强，因为在[Vuejs官网](http://cn.vuejs.org/v2/guide/comparison.html#React)就已经有了比较全面客观的介绍，并且是中文的。
 ![框架排名](https://cloud.githubusercontent.com/assets/13991287/22885137/01f98ac6-f233-11e6-8935-6b7a56236d20.png)
 
-上图是二月份前端框架排名，Reactjs位居第一，Vuejs排名第三。还清晰记得，16年十月份该showcase首页并未看到Vuejs，如今已经有4000+ stars，那时的Reactjs也是这个数字，可见Vuejs 2.0有多受关注，而排名第二的Angularjs当时位居第一，短短数月Reactjs，Vuejs都有了比较好的成绩，而Angularjs的stars没又明显增长，是否可以断章取义，Angularjs正在慢慢地退出这个舞台。
+上图是二月份前端框架排名，Reactjs位居第一，Vuejs排名第三。还清晰记得，16年十月份该showcase首页并未看到Vuejs，如今已经有4000+ stars，那时的Reactjs也是这个数字，可见Vuejs 2.0有多受关注，而排名第二的Angularjs当时位居第一，短短数月Reactjs，Vuejs都有了比较好的成绩，而Angularjs的stars没有明显增长，是否可以断章取义，Angularjs正在慢慢地退出这个舞台。
 
 对于关注度最高的Reactjs和Vuejs，想在这里谈谈两个框架在开发风格上的差异。Vuejs升级到[2.0](https://cn.vuejs.org/v2/guide/migration.html#FAQ)之后，有更多的特性向Reactjs靠拢，所以可以写的越来越少。下面将从几个细节上作对比。
 ##Vuejs更容易上手##
