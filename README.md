@@ -8,19 +8,19 @@
 ##Vuejs更容易上手##
 Vuejs更容易上手！这是真的吗？我书读的少，作者是想支持国产吗？
 
-Vuejs的语法很自由，比如：
-- data和属性都是通过this直接访问
-- 不需要认识太多的生命周期函数，可能只关心mounted和Vue.nextTick（保证this.$el在document中）
+Vuejs 的语法很自由，比如：
+- data 和属性都是通过 this 直接访问
+- 不需要认识太多的生命周期函数，可能只关心 mounted 和 Vue.nextTick（保证 this.$el 在 document 中）
 - 熟悉的前端模板
 - 父子组件间通信更灵活
 - slot，可以大尺度地扩展组件（但也不要过度使用哦）
-- v-model，mvvm的方式处理表单更方便
+- v-model，mvvm 的方式处理表单更方便
 
 从入门学习一个框架的角度看，少一些规则多一些自由空间，门槛就降低了。
 
-##表单在Reactjs中的蛋疼之处##
+##表单在 Reactjs 中的蛋疼之处##
 
-Reactjs和Vuejs如何拿input的value，先上代码
+Reactjs 和 Vuejs 如何拿 input 的 value，先上代码
 #####Reactjs#####
 ```jsx
 class Demo extends React.Component{
@@ -89,24 +89,24 @@ new Vue({
     }
 })
 ```
-Vuejs进行表单处理的方式是不是更简洁，由于v-model属性支持数据双向绑定，说白了v-model就是（value的单向绑定 + onChange事件监听）的语法糖，但这个味道还不错吧。比起在Reactjs表单需要绑定多个onChange事件确实要方便得多。
+Vuejs进行表单处理的方式是不是更简洁，由于 v-model 属性支持数据双向绑定，说白了 v-model 就是（value 的单向绑定 + onChange 事件监听）的语法糖，但这个味道还不错吧。比起在 Reactjs 表单需要绑定多个 onChange 事件确实要方便得多。
 
 ##父子组件间通信
 
 父组件通知子组件都是通过 props 逐层传递，而子组件向上通信的方式会有些差异。父组件将函数传给子组件，Reactjs 把数据作为该函数的参数，并调用该函数来实现向上通信（Vuejs也可以做到）。这样做的坏处是，当组件跨层级通信时，只能将函数逐层往下传递，逆向追溯比较麻烦，过程也比较繁琐。而 Vuejs 通过（on + dispatch）组合的方式实现通信，这样当组件跨级通信时比较方便，dispatch 可以将消息逐层往上派发，直到触发某一个监听函数时停止。
 但写到这我竟有点不知所措，因为Vuejs2.0已经[废弃dispatch](https://cn.vuejs.org/v2/guide/migration.html#dispatch-和-broadcast-替换)，这个之前让我一直很喜欢，觉得在父子组件间通信能力完爆Reactjs的特性，官方给出的理由是，由于基于组件树结构的事件流方式让人难以理解，并且在组件结构扩展过程中变得越来越脆弱。在 Vuejs 2.0 中构建小型应用，建议使用[global event bus](http://vuejs.org/v2/guide/components.html#Non-Parent-Child-Communication)，它还可以有效地解决兄弟节点之间的通信问题，但个人觉得除了这点，其它都比不上dispatch，因为我不知道当前监听的事件是在哪里被触发，最后只能全局搜索代码。
 ##JSX vs Templates##
-刚接触Reactjs，因为用惯了javascript 模板引擎，一直坚信视图与功能逻辑分离是正确的选择，突然看到JSX把html写在js里，内心是拒绝的！
+刚接触 Reactjs，因为用惯了javascript 模板引擎，一直坚信视图与功能逻辑分离是正确的选择，突然看到 JSX 把 html 写在 js 里，内心是拒绝的！
 
-facebook官方好像知道大家对JSX有偏见，在文档一开始就给出[解释](http://reactjs.cn/react/docs/displaying-data.html#jsx-syntax)
+Facebook官方好像知道大家对 JSX 有偏见，在文档一开始就给出[解释](http://reactjs.cn/react/docs/displaying-data.html#jsx-syntax)
 
 > We strongly believe that components are the right way to separate concerns rather than "templates" and "display logic." We think that markup and the code that generates it are intimately tied together. Additionally, display logic is often very complex and using template languages to express it becomes cumbersome.
 
-在这里结合我的理解翻译一下， Reactjs 团队坚信一个组件的正确用途是"separate concerns"，而不是前端模板或者展示逻辑。我们认为前端模板和组件代码是紧密相连的。另外，模板语言经常让展示的逻辑变得更复杂。
+在这里结合我的理解翻译一下， Reactjs 团队坚信一个组件的正确用途是 "separate concerns"，而不是前端模板或者展示逻辑。我们认为前端模板和组件代码是紧密相连的。另外，模板语言经常让展示的逻辑变得更复杂。
 
-刚开始没弄明白什么是 "separate concerns"，其实现在也...Facebook 可能是在强调组件应该从功能上去抽象定义，而不仅仅从视觉上区分。
+刚开始没弄明白什么是 "separate concerns"，其实现在也... Facebook 可能是在强调组件应该从功能上去抽象定义，而不仅仅从视觉上区分。
 
-看完官方答复我欣然接受了，有谁在写前端模板的时候，没有掺杂业务逻辑的，掺杂了不就违背MVC吗！Facebook觉得这种“分离”让问题更复杂，不如把模板和逻辑代码结合到一块。而开发者一开始不接受JSX，是受到传统js拼接字符串模板的死板方式影响，其实JSX更灵活，[它在逻辑能力表达上完爆模板，但也很容易写出凌乱的render函数，不如模板直观](https://www.zhihu.com/question/31585377)。
+看完官方答复我欣然接受了，有谁在写前端模板的时候，没有掺杂业务逻辑的，掺杂了不就违背 MVC 吗！Facebook 觉得这种“分离”让问题更复杂，不如把模板和逻辑代码结合到一块。而开发者一开始不接受 JSX，是受到传统js拼接字符串模板的死板方式影响，其实 JSX 更灵活，[它在逻辑能力表达上完爆模板，但也很容易写出凌乱的render函数，不如模板直观](https://www.zhihu.com/question/31585377)。
 
 ##Reactjs为什么很少用ref##
 
