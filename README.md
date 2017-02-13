@@ -2,9 +2,9 @@
 这里要讨论的话题，不是前端框架哪家强，因为在 [Vuejs 官网](http://cn.vuejs.org/v2/guide/comparison.html#React)就已经有了比较全面客观的介绍，并且是中文的。
 ![框架排名](https://cloud.githubusercontent.com/assets/13991287/22885137/01f98ac6-f233-11e6-8935-6b7a56236d20.png)
 
-上图是二月份前端框架排名，Reactjs 位居第一，Vuejs 排名第三。还清晰记得，16年十月份该 showcase 首页并未看到 Vuejs，如今已经有4000+ stars，那时的 Reactjs 也是这个成绩，可见 Vuejs 2.0有多受关注，而排名第二的 Angularjs 当时位居第一，短短数月 Reactjs、Vuejs 都有了比较好的成绩，而 Angularjs 的stars 没有明显增长，是否可以断章取义，Angularjs 正在慢慢地退出这个舞台。
+上图是二月份前端框架排名，Reactjs 位居第一，Vuejs 排名第三。还清晰记得，16 年十月份该 showcase 首页并未看到 Vuejs，如今已有 4000+ stars，那时的 Reactjs 也差不多这个成绩，可见 Vuejs 2.0 有多受关注，而排名第二的 Angularjs 当时位居第一，短短数月 Reactjs、Vuejs 都有比较好的成绩，而 Angularjs 的 stars 没有明显增长，是否可以断章取义，Angularjs 正在慢慢地退出这个舞台。
 
-对于近期关注度最高的 Reactjs 和 Vuejs，想在这里谈谈两个框架在开发风格上的差异。Vuejs 升级到[2.0](https://cn.vuejs.org/v2/guide/migration.html#FAQ)之后，有更多的特性向 Reactjs 靠拢，所以可以写的越来越少。下面将从几个细节上作对比。
+对于近期关注度最高的 Reactjs 和 Vuejs，想在这里谈谈两个框架在开发风格上的差异。Vuejs 升级到 [2.0](https://cn.vuejs.org/v2/guide/migration.html#FAQ) 之后，有更多的特性向 Reactjs 靠拢，所以可以写的越来越少，下面将在几个细节上作对比。
 ##Vuejs更容易上手##
 Vuejs 更容易上手！这是真的吗？我书读的少，作者是想支持国产吗？
 
@@ -89,13 +89,13 @@ new Vue({
     }
 })
 ```
-Vuejs 进行表单处理的方式是不是更简洁，由于 v-model 属性支持数据双向绑定，说白了 v-model 就是（value 的单向绑定 + onChange 事件监听）的语法糖，但这个味道还不错吧。比起在 Reactjs 表单需要绑定多个 onChange 事件确实要方便得多。
+Vuejs 进行表单处理的方式是不是更简洁，由于 v-model 属性支持数据双向绑定，说白了就是（value 的单向绑定 + onChange 事件监听）的语法糖，但这个味道还不错吧，比起在 Reactjs 中需要绑定多个 onChange 事件确实要方便得多。
 
 ##父子组件间通信
 
-父组件通知子组件都是通过 props 逐层传递，而子组件向上通信的方式会有些差异。父组件将函数传给子组件，Reactjs 把数据作为该函数的参数，并调用该函数来实现向上通信（Vuejs也可以做到）。这样做的坏处是，当组件跨层级通信时，只能将函数逐层往下传递，向上追溯比较麻烦，过程也比较繁琐。而 Vuejs 通过（on + dispatch）组合的方式实现通信，这样当组件跨级通信时比较方便，dispatch 可以将消息逐层往上派发，直到触发某一个监听函数时停止。
+父组件通知子组件都是通过 props 逐层传递，而子组件向上通信的方式会有些差异。父组件将函数传给子组件，Reactjs 把数据作为该函数的参数，并调用该函数来实现向上通信（Vuejs 也可以做到）。这样做的坏处是，当组件跨层级通信时，需将函数逐层往下传递，往回追溯的话比较麻烦，过程也比较繁琐。而 Vuejs 通过（on + dispatch）组合的方式实现通信，这样当组件跨级通信时比较方便，dispatch 可以将消息逐层往上派发，直到触发某一个监听函数时停止。
 
-但写到这我竟有点不知所措，因为 Vuejs2.0 已经[废弃 dispatch](https://cn.vuejs.org/v2/guide/migration.html#dispatch-和-broadcast-替换)，这个之前让我一直很喜欢，觉得在父子组件间通信能力完爆 Reactjs 的特性跟我们说白白了，官方给出的理由是，由于基于组件树结构的事件流方式让人难以理解，并且在组件结构扩展过程中变得越来越脆弱。在 Vuejs 2.0 中构建小型应用，建议使用 [global event bus](http://vuejs.org/v2/guide/components.html#Non-Parent-Child-Communication)，它还可以有效地解决兄弟节点之间的通信问题，但个人觉得除了这点，其它都比不上 dispatch，因为我不知道当前监听的事件是在哪里被触发，最后只能全局搜索代码。
+但写到这我竟有点不知所措，因为 Vuejs2.0 已经[废弃 dispatch](https://cn.vuejs.org/v2/guide/migration.html#dispatch-和-broadcast-替换)，这个之前让我一直很喜欢，觉得在父子组件间通信能力完爆 Reactjs 的特性跟我们说白白了，官方给出的理由是，基于组件树结构的事件流方式让人难以理解，并且在组件结构扩展过程中变得越来越脆弱。在 Vuejs 2.0 中构建小型应用，建议使用 [global event bus](http://vuejs.org/v2/guide/components.html#Non-Parent-Child-Communication)，它还可以有效地解决兄弟节点之间的通信问题，但个人觉得除了这点，其它都比不上 dispatch，因为我不知道当前监听的事件是在哪里被触发，最后只能全局搜索代码。
 ##JSX vs Templates##
 刚接触 Reactjs，因为用惯了javascript 模板引擎，一直坚信视图与功能逻辑分离是正确的选择，突然看到 JSX 把 html 写在 js 里，内心是拒绝的！
 
