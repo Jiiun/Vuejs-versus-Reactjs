@@ -1,22 +1,22 @@
 # Reactjs Comparison with Vuejs
 这里要讨论的话题，不是前端框架哪家强，因为在[Vuejs官网](http://cn.vuejs.org/v2/guide/comparison.html#React)就已经有了比较全面客观的介绍，并且是中文的。
-![框架排名](https://cloud.githubusercontent.com/assets/13991287/21755604/696f182c-d651-11e6-8026-145a10a475d2.png)
+![框架排名](![image](https://cloud.githubusercontent.com/assets/13991287/22885137/01f98ac6-f233-11e6-8935-6b7a56236d20.png)
 
-上图是一月份前端框架排名，Reactjs位居第一，Vuejs排名第三。还清晰记得，16年十月份进入该showcase并未看到Vuejs，可见Vuejs 2.0有多受欢迎，而排名第二的Angularjs当时位居第一，短短数月Reactjs，Vuejs都有了比较好的成绩，Angularjs的stars没什么增长，是否可以理解为，Angularjs正在慢慢地退出这个舞台。
+上图是二月份前端框架排名，Reactjs位居第一，Vuejs排名第三。还清晰记得，16年十月份该showcase首页并未看到Vuejs，如今已经有4000+ stars，那时的Reactjs也是这个数字，可见Vuejs 2.0有多受关注，而排名第二的Angularjs当时位居第一，短短数月Reactjs，Vuejs都有了比较好的成绩，而Angularjs的stars没又明显增长，是否可以断章取义，Angularjs正在慢慢地退出这个舞台。
 
-对于关注度最高的Reactjs和Vuejs，想在这里谈谈两个框架在开发风格上的差异。Vuejs升级到[2.0](https://cn.vuejs.org/v2/guide/migration.html#FAQ)之后，有越来越多的特性向Reactjs靠近，导致我可以写的东西越来越少。
+对于关注度最高的Reactjs和Vuejs，想在这里谈谈两个框架在开发风格上的差异。Vuejs升级到[2.0](https://cn.vuejs.org/v2/guide/migration.html#FAQ)之后，有更多的特性向Reactjs靠拢，所以可以写的越来越少。下面将从几个细节上作对比。
 ##Vuejs更容易上手##
 Vuejs更容易上手！这是真的吗？我书读的少，作者是想支持国产吗？
 
 Vuejs的语法很自由，比如：
-- state和props都一起放在this中
+- data和属性都是通过this直接访问
 - 不需要认识太多的生命周期函数，可能只关心mounted和Vue.nextTick（保证this.$el在document中）
 - 熟悉的前端模板
 - 父子组件间通信更灵活
 - slot，可以大尺度地扩展组件（但也不要过度使用哦）
 - v-model，mvvm的方式处理表单更方便
 
-从入门学习一个框架的角度看，少了一些规则，门槛就降低了。
+从入门学习一个框架的角度看，少一些规则多一些自由空间，门槛就降低了。
 
 ##表单在Reactjs中的蛋疼之处##
 
@@ -89,12 +89,12 @@ new Vue({
     }
 })
 ```
-Vuejs的v-model属性支持数据双向绑定，说白了v-model就是（value的单向绑定 + onChange事件监听）的语法糖，但这个味道还不错吧。比起在Reactjs表单需要绑定多个onChange事件确实要方便得多。前提是不引入第三方架构（FLUX/Redux）下进行对比的，现实中在创建中大型单页面应用才会用到这些框架。
+Vuejs进行表单处理的方式是不是更简洁，由于v-model属性支持数据双向绑定，说白了v-model就是（value的单向绑定 + onChange事件监听）的语法糖，但这个味道还不错吧。比起在Reactjs表单需要绑定多个onChange事件确实要方便得多。
 
 ##父子组件间通信
 
-父组件通知子组件都是通过 prop 逐层传递，而子组件向上通信的方式就有些差异。Reactjs通过调用父组件传进来的函数，并把通知的信息作为该函数的参数（Vuejs也可以做到），这样做的坏处是，当组件跨层级通信时，只能将函数逐层往下传递，过程比较繁琐。而 Vuejs 通过（监听 + 派发）事件的方式实现通信，这样当组件跨级通信时就比较方便，dispatch 的特点是可以将消息逐层往上派发，直到触发某一个监听函数。
-但写到这我竟有点不知所措，因为Vuejs2.0已经[废弃dispatch](https://cn.vuejs.org/v2/guide/migration.html#dispatch-和-broadcast-替换)，这个之前让我一直很喜欢，觉得在父子组件间通信能力完爆Reactjs的特性，由于基于组件树结构的事件流方式让人难以理解，并且在组件结构扩展过程中变得越来越脆弱，如果构建小型应用，建议使用[global event bus](http://vuejs.org/v2/guide/components.html#Non-Parent-Child-Communication)，它还可以有效地解决兄弟节点之间的通信问题，但个人觉得除了这点，其它都比dispatch low，因为你不知道当前监听的事件是哪里emit的而要全局搜索代码。
+父组件通知子组件都是通过 props 逐层传递，而子组件向上通信的方式会有些差异。父组件将函数传给子组件，Reactjs 把数据作为该函数的参数，并调用该函数来实现向上通信（Vuejs也可以做到）。这样做的坏处是，当组件跨层级通信时，只能将函数逐层往下传递，逆向追溯比较麻烦，过程也比较繁琐。而 Vuejs 通过（on + dispatch）组合的方式实现通信，这样当组件跨级通信时比较方便，dispatch 可以将消息逐层往上派发，直到触发某一个监听函数时停止。
+但写到这我竟有点不知所措，因为Vuejs2.0已经[废弃dispatch](https://cn.vuejs.org/v2/guide/migration.html#dispatch-和-broadcast-替换)，这个之前让我一直很喜欢，觉得在父子组件间通信能力完爆Reactjs的特性，官方给出的理由是，由于基于组件树结构的事件流方式让人难以理解，并且在组件结构扩展过程中变得越来越脆弱。在 Vuejs 2.0 中构建小型应用，建议使用[global event bus](http://vuejs.org/v2/guide/components.html#Non-Parent-Child-Communication)，它还可以有效地解决兄弟节点之间的通信问题，但个人觉得除了这点，其它都比不上dispatch，因为我不知道当前监听的事件是在哪里被触发，最后只能全局搜索代码。
 ##JSX vs Templates##
 刚接触Reactjs，因为用惯了javascript 模板引擎，一直坚信视图与功能逻辑分离是正确的选择，突然看到JSX把html写在js里，内心是拒绝的！
 
@@ -102,15 +102,17 @@ facebook官方好像知道大家对JSX有偏见，在文档一开始就给出[�
 
 > We strongly believe that components are the right way to separate concerns rather than "templates" and "display logic." We think that markup and the code that generates it are intimately tied together. Additionally, display logic is often very complex and using template languages to express it becomes cumbersome.
 
-在这里结合我的理解翻译一下， Reactjs 团队坚信定义一个组件，正确的方法是通过功能或者关注点来区分，而不是前端模板或者展示逻辑。我们认为前端模板和组件代码是紧密相连的。另外，模板语言经常让展示的逻辑变得更复杂。
+在这里结合我的理解翻译一下， Reactjs 团队坚信一个组件的正确用途是"separate concerns"，而不是前端模板或者展示逻辑。我们认为前端模板和组件代码是紧密相连的。另外，模板语言经常让展示的逻辑变得更复杂。
 
-看到这我欣然接受了，有谁在写前端模板的时候，没有掺杂任何逻辑的，这不是违背了MVC原则吗！facebook觉得这种“分离”让问题更复杂，不如把模板和逻辑代码结合到一块。而开发者一开始不接受JSX，是受到传统js拼接字符串模板的死板方式影响，其实JSX更灵活，[它在逻辑能力表达上完爆模板，但也很容易写出凌乱的render函数，不如模板直观](https://www.zhihu.com/question/31585377)。
+刚开始没弄明白什么是 "separate concerns"，其实现在也...Facebook 可能是在强调组件应该从功能上去抽象定义，而不仅仅从视觉上区分。
+
+看完官方答复我欣然接受了，有谁在写前端模板的时候，没有掺杂业务逻辑的，掺杂了不就违背MVC吗！Facebook觉得这种“分离”让问题更复杂，不如把模板和逻辑代码结合到一块。而开发者一开始不接受JSX，是受到传统js拼接字符串模板的死板方式影响，其实JSX更灵活，[它在逻辑能力表达上完爆模板，但也很容易写出凌乱的render函数，不如模板直观](https://www.zhihu.com/question/31585377)。
 
 ##Reactjs为什么很少用ref##
 
-在实际项目中，我是先用了Vuejs，后一个项目才用了Reactjs，它们都有一个强大的功能，组件！组件可以扩展 HTML 元素，封装可重用的代码，提高了我们的开发效率。从维护成的角度，组件的质量决定了产品的质量，基于高质量的组件开发出来的功能，交互上的bug都会比较少。但是从组件的封装力度上，我一开始更喜欢Vuejs，甚至还得出了这样的结论：Reactjs组件像是UI组件，Vuejs组件更接近对象。直到最近看了facebook文档，才发现另有蹊跷。先看看之前用Vuejs，我是如何去创建一个List组件，并且父组件是如何调用的。
+Reactjs 和 Vuejs 都有一个强大的特性，组件！组件可以扩展 HTML 元素，封装可重用的代码，提高了我们的开发效率，并且在组件本身质量有保障情况下，后续新功能也趋于稳定，bug 较少。在实际开发项目中，可能 Vuejs 先入为主，一开始觉得它的组件封装力度比 Reactjs 强，甚至还得出了这样的结论：Reactjs 组件像是 UI 组件，Vuejs 组件更接近对象。直到最近看了 Facebook 文档，才发现另有蹊跷。先看看之前用 Vuejs ，我是如何去创建一个 List 组件，并且父组件是如何调用的。
 
-没用过ref的同学，可以看下[文档](https://facebook.github.io/react/docs/refs-and-the-dom.html#dont-overuse-refs)，不过看下面的代码，也能知道ref的作用。
+没用过 ref 的同学，可以先看下[文档](https://facebook.github.io/react/docs/refs-and-the-dom.html#dont-overuse-refs)，不过看完下面代码也能大概知道 ref 的作用。
 #####Vuejs#####
 ```html
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
@@ -169,7 +171,7 @@ new Vue({
     }
 })
 ```
-#####再看看Reactjs是怎么做的#####
+#####再看看 Reactjs 是怎么做的#####
 ```jsx
 class List extends React.Component{
   _delete(index){
@@ -244,16 +246,16 @@ ReactDOM.render(
   document.getElementById('container')
 );
 ```
-通过上面两段代码可以看出，在调用List组件的时候，Reactjs比Vuejs复杂的多，不仅仅是多了onChange，包括新增和删除的逻辑，都必须在父组件中实现，这样会导致项目中有多个地方调用List组件，都必须实现这套相似的逻辑，而这套逻辑在Vuejs中是封装在组件里的，所以给我的感觉，Reactjs像UI组件，而Vuejs更接近对象。
+通过上面两段代码可以看出，在调用 List 组件的时候，Reactjs 比 Vuejs 复杂的多，不仅仅是多了onChange，包括新增和删除的逻辑，都必须在父组件中实现，这样会导致项目中有多个地方调用 List 组件，都必须实现这套相似的逻辑，而这套逻辑在 Vuejs 中是封装在组件里的，所以给我的感觉，Reactjs 比较关注组件的展示，而 Vuejs 比较关注功能。
 
-细心的同学可能发现了，Reactjs也有[ref属性](http://reactjs.cn/react/docs/more-about-refs.html#the-ref-callback-attribute)，它可以让父组件调用子组件的方法，但实际项目中却很少看到，为什么大家都这么一致呢？我查了一下文档，[原来facebook不推荐过度使用ref](https://facebook.github.io/react/docs/refs-and-the-dom.html#dont-overuse-refs)
+细心的同学可能发现了，Reactjs也有[ ref 属性](http://reactjs.cn/react/docs/more-about-refs.html#the-ref-callback-attribute)，它可以让父组件调用子组件的方法，但实际项目中却很少看到，为什么大家都这么一致呢？我查了一下文档，[原来 Facebook 不推荐过度使用ref](https://facebook.github.io/react/docs/refs-and-the-dom.html#dont-overuse-refs)
 >Your first inclination may be to use refs to "make things happen" in your app. If this is the case, take a moment and think more critically about where state should be owned in the component hierarchy. Often, it becomes clear that the proper place to "own" that state is at a higher level in the hierarchy. See the Lifting State Up guide for examples of this.
 
 官方还有个[栗子](https://facebook.github.io/react/docs/lifting-state-up.html)，这里我也举个比较常见的
 
 ![举个栗子](https://cloud.githubusercontent.com/assets/13991287/22298063/2b702c1c-e35a-11e6-81e5-503452256480.png)
 
-基于上面的栗子，比如现在列表数据多啦！需要在列表顶部显示有多少条数据！我们可以定义一个显示条数的组件Counts。如果按照Vuejs的实现方法（好吧！这里好像在黑Vuejs，其实是我一开始的误解），Counts组件要监听两个事件（plus & minus），在事件中更新条数，当List进行add()或delete()需要emit plus/minus，且不说这Counts组件复杂，这事件流很难追溯，代码放久了看着都晕晕的！但是Reactjs的实现方法就没有这个问题，Counts组件只需要一个count属性代表显示的数字，父组件把this.state.list.length作为参数传入就可以了，这种方式就是是不是很清晰。虽然Reactjs的这种方式，在不需要与其他组件共享数据的时候，调用起来确实很繁琐，但业务这种事情真的很难说，很多意想不到的情况都会发生，上面的栗子，指不定后期还要新加一个分页组件呢，所以我也悬崖勒马，以后不管在Vuejs中还是Reactjs，都少用ref，给自己的代码留条后路！
+基于上面的栗子，比如现在列表数据多啦！需要在列表顶部显示有多少条数据！我们可以定义一个显示条数的组件 Counts。如果按照 Vuejs 的实现方法（好吧！这里好像要黑Vuejs，其实是我一开始的误解），Counts 组件要监听两个事件（plus & minus），在事件函数中更新条数，当 List 进行 add() 或 delete() 需要触发 plus / minus，且不说这 Counts 组件复杂，这事件流也很难追溯，代码放久了看着都晕晕的！但是 Reactjs 的实现方法就没有这个问题，Counts组件只需要一个 count 属性代表显示的数字，父组件把 this.state.list.length 作为参数传入就可以了，这种方式就是不是很清晰。虽然 Reactjs 的这种方式，在不需要与其他组件共享数据的时候，调用起来很繁琐，但业务这种事情真的很难说，很多意想不到的情况都会发生，基于上面的栗子，指不定后期还要新加一个分页组件呢，所以我也悬崖勒马，以后不管在 Vuejs 还是 Reactjs，尽量少用 ref，给自己的代码留条后路！
 
-上面不是在黑Vuejs，只不过是在对比两种实现组件的方式！总结一下，当组件之间有共享数据时，该数据与操作该数据的逻辑，应该放在最接近它们的父组件，这样子组件的逻辑会更合理，更清晰，而使用ref会违背这个规则。
+上面不是在黑 Vuejs，只不过是在对比两种实现组件的方式！总结一下，当组件之间有共享数据时，该数据与操作该数据的逻辑，应该放在最接近它们的父组件，这样子组件的逻辑会更合理，更清晰，而使用 ref 会违背这个规则。
 
