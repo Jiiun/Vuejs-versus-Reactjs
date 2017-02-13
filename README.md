@@ -4,7 +4,7 @@
 
 上图是二月份前端框架排名，Reactjs 位居第一，Vuejs 排名第三。还清晰记得，16年十月份该 showcase 首页并未看到 Vuejs，如今已经有4000+ stars，那时的 Reactjs 也是这个数字，可见 Vuejs 2.0有多受关注，而排名第二的 Angularjs 当时位居第一，短短数月 Reactjs、Vuejs 都有了比较好的成绩，而 Angularjs 的stars 没有明显增长，是否可以断章取义，Angularjs 正在慢慢地退出这个舞台。
 
-对于关注度最高的Reactjs和Vuejs，想在这里谈谈两个框架在开发风格上的差异。Vuejs升级到[2.0](https://cn.vuejs.org/v2/guide/migration.html#FAQ)之后，有更多的特性向Reactjs靠拢，所以可以写的越来越少。下面将从几个细节上作对比。
+对于近期关注度最高的 Reactjs 和 Vuejs，想在这里谈谈两个框架在开发风格上的差异。Vuejs 升级到[2.0](https://cn.vuejs.org/v2/guide/migration.html#FAQ)之后，有更多的特性向 Reactjs 靠拢，所以可以写的越来越少。下面将从几个细节上作对比。
 ##Vuejs更容易上手##
 Vuejs更容易上手！这是真的吗？我书读的少，作者是想支持国产吗？
 
