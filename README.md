@@ -6,7 +6,7 @@
 
 对于近期关注度最高的 Reactjs 和 Vuejs，想在这里谈谈两个框架在开发风格上的差异。Vuejs 升级到[2.0](https://cn.vuejs.org/v2/guide/migration.html#FAQ)之后，有更多的特性向 Reactjs 靠拢，所以可以写的越来越少。下面将从几个细节上作对比。
 ##Vuejs更容易上手##
-Vuejs更容易上手！这是真的吗？我书读的少，作者是想支持国产吗？
+Vuejs 更容易上手！这是真的吗？我书读的少，作者是想支持国产吗？
 
 Vuejs 的语法很自由，比如：
 - data 和属性都是通过 this 直接访问
