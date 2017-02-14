@@ -4,7 +4,7 @@
 
 上图是二月份前端框架排名，React 位居第一，Vue 排名第三。还清晰记得，16 年十月份该 showcase 首页并未看到 Vue，如今已有 40000+ stars，那时的 React 也差不多这个成绩，可见 Vue 2.0 有多受关注，而排名第二的 Angular 当时位居第一，短短数月 React、Vue 都有比较好的成绩，而 Angular 的 stars 没有明显增长，是否可以断章取义，Angular 正在慢慢地退出这个舞台。
 
-对于近期关注度最高的 React 和 Vue，想在这里谈谈两个框架在开发风格上的差异。Vue 升级到 [2.0](https://cn.vuejs.org/v2/guide/migration.html#FAQ) 之后新增了很多 React 原有的特性，我的理解是 Vue 对 React 在这些方面的肯定和致敬，下面将在几个细节上作对比。
+对于近期关注度最高的 React 和 Vue，想在这里谈谈两个框架在开发风格上的差异。Vue 升级到 [2.0](https://cn.vuejs.org/v2/guide/) 之后新增了很多 React 原有的特性，我的理解是 Vue 对 React 在这些方面的肯定和致敬，下面将在几个细节上作对比。
 ##Vue更容易上手##
 Vue 更容易上手！这是真的吗？我书读的少，作者是想支持国产吗？
 
@@ -98,7 +98,7 @@ Vue 进行表单处理的方式是不是更简洁，由于 v-model 属性支持�
 ##JSX vs Templates##
 刚接触 React，因为用惯了javascript 模板引擎，一直坚信视图与功能逻辑分离是正确的选择，突然看到 JSX 把 html 写在 js 里，内心是拒绝的！
 
-Facebook官方好像知道大家对 JSX 有偏见，在文档一开始就给出[解释](http://reactjs.cn/react/docs/displaying-data.html#jsx-syntax)
+Facebook 官方好像知道大家对 JSX 有偏见，在文档一开始就给出[解释](http://reactjs.cn/react/docs/displaying-data.html#jsx-syntax)
 
 > We strongly believe that components are the right way to separate concerns rather than "templates" and "display logic." We think that markup and the code that generates it are intimately tied together. Additionally, display logic is often very complex and using template languages to express it becomes cumbersome.
 
