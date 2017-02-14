@@ -26,10 +26,10 @@ Reactjs 和 Vuejs 如何拿 input 的 value，先上代码
 class Demo extends React.Component{
   constructor(props){
     super(props)
-      this.state={
-        inputA: '',
-        inputB: ''
-      }
+    this.state={
+      inputA: '',
+      inputB: ''
+    }
   }
   _onChangeA(e){
     this.setState({
