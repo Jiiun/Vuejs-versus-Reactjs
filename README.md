@@ -111,7 +111,7 @@ Facebook官方好像知道大家对 JSX 有偏见，在文档一开始就给出[
 
 ##Reactjs为什么很少用ref##
 
-Reactjs 和 Vuejs 都有一个强大的特性，组件！组件可以扩展 HTML 元素，封装可重用的代码，提高了我们的开发效率，并且在组件本身质量有保障情况下，后续新功能也趋于稳定，bug 较少。在实际开发项目中，可能 Vuejs 先入为主，一开始觉得它的组件封装力度比 Reactjs 强，甚至还得出了这样的结论：Reactjs 组件像是 UI 组件，Vuejs 组件更接近对象。直到最近看了 Facebook 文档，才发现另有蹊跷。先看看之前用 Vuejs ，我是如何去创建一个 List 组件，并且父组件是如何调用的。
+Reactjs 和 Vuejs 都有一个强大的特性，组件！组件可以扩展 HTML 元素，封装可重用的代码，提高了我们的开发效率，并且在组件本身质量有保障情况下，后续新功能也趋于稳定，bug 较少。在实际开发项目中，可能 Vuejs 先入为主，一开始觉得它的组件封装力度比 Reactjs 强，甚至还得出了这样的结论：Reactjs 组件像是 UI 组件，Vuejs 组件更接近对象。直到最近看了 Facebook 文档，才发现另有蹊跷。先看看之前用 Vuejs ，我是如何去创建一个列表（List）组件，并实现列表数据的新增和删除。
 
 没用过 ref 的同学，可以先看下[文档](https://facebook.github.io/react/docs/refs-and-the-dom.html#dont-overuse-refs)，不过看完下面代码也能大概知道 ref 的作用。
 #####Vuejs#####
