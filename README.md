@@ -9,8 +9,7 @@
 Vuejs 更容易上手！这是真的吗？我书读的少，作者是想支持国产吗？
 
 Vuejs 的语法很自由，比如：
-- data 和属性都是通过 this 直接访问
-- 不需要认识太多的生命周期函数，可能只关心 mounted 和 Vue.nextTick（保证 this.$el 在 document 中）
+- 前期不需要认识太多的生命周期函数，可能只关心 mounted 和 Vue.nextTick（保证 this.$el 在 document 中）
 - 熟悉的前端模板
 - 父子组件间通信更灵活
 - slot，可以大尺度地扩展组件（但也不要过度使用哦）
