@@ -104,7 +104,7 @@ Facebook 官方好像知道大家对 JSX 有偏见，在文档一开始就给出
 看完官方答复我欣然接受了，有谁在写前端模板的时候，没有掺杂业务逻辑的，掺杂了不就违背 MVC 吗！Facebook 觉得这种“分离”让问题更复杂，不如把模板和逻辑代码结合到一块。而开发者一开始不接受 JSX，是受到传统js拼接字符串模板的死板方式影响，其实 JSX 更灵活，[它在逻辑能力表达上完爆模板，但也很容易写出凌乱的render函数，不如模板直观](https://www.zhihu.com/question/31585377)。
 
 ##父子组件间通信##
-Vue 组件向上通信主要通过触发事件，而大多初学者以为 React 只能靠调用父组件的 callback，并且这种方式遇到组件层次太深的时候简直就是噩梦。其实 React 也可以通过[事件通信](http://www.alloyteam.com/2016/01/some-methods-of-reactjs-communication-between-components/)来解决问题，只不过需要通过额外 coding 或调用第三方插件，而 Vue 的核心库已实现了该功能。React 拥有丰富的生态圈，很多事情是大家一起完成的。
+Vue 组件向上通信主要通过触发事件，而大多初学者以为 React 只能靠调用父组件的 callback，并且这种方式遇到组件层次太深的时候简直就是噩梦。其实 React 也可以通过[事件通信](http://www.alloyteam.com/2016/01/some-methods-of-reactjs-communication-between-components/)来解决问题，只不过需要额外 coding 或调用第三方插件，而 Vue 的核心库已实现了该功能。React 拥有丰富的生态圈，很多事情是大家一起完成的。
 ##ref or props##
 
 父组件可通过 ref 定位子组件并调用它的 api，也可通过 props 传递数据，实现父组件通知子组件，ref 和 props 这两种方式将决定组件的形态。在实际开发中，可能 Vue 先入为主，ref 也用的比较多，因为它在组件封装力度上确实有优势， api 可让组件更抽象、更关注自身的功能，不受外界影响。而后来转到 React 几乎都是用 props 通信，一开始还以为是 React 的问题，甚至还得出了这样的结论：React 组件像是 UI 组件，Vue 组件更接近对象。直到最近看了 Facebook 文档，才发现另有蹊跷。先看看之前用 Vue ，我是如何去创建一个列表（List）组件，并实现列表数据的新增和删除，以及调用方式。
