@@ -104,7 +104,7 @@ Facebook 官方好像知道大家对 JSX 有偏见，在文档一开始就给出
 看完官方答复我欣然接受了，有谁在写前端模板的时候，没有掺杂业务逻辑的，掺杂了不就违背 MVC 吗！Facebook 觉得这种“分离”让问题更复杂，不如把模板和逻辑代码结合到一块。而开发者一开始不接受 JSX，是受到传统js拼接字符串模板的死板方式影响，其实 JSX 更灵活，[它在逻辑能力表达上完爆模板，但也很容易写出凌乱的render函数，不如模板直观](https://www.zhihu.com/question/31585377)。
 
 ##父子组件间通信##
-Vue 组件向上通信主要通过触发事件，而大多初学者以为 React 只能靠调用父组件的 callback，并且这种方式遇到组件层次太深的时候简直就是噩梦。其实 React 也可以通过[事件通信](http://www.alloyteam.com/2016/01/some-methods-of-reactjs-communication-between-components/)来解决问题，只不过需要额外 coding 或调用第三方插件，而 Vue 的核心库已实现了该功能。React 拥有丰富的生态圈，很多事情是大家一起完成的。
+Vue 组件向上通信可通过触发事件，但在 Vue 2.0 [废弃 dispatch](https://cn.vuejs.org/v2/guide/migration.html#dispatch-和-broadcast-替换)，建议使用[global event bus](http://vuejs.org/v2/guide/components.html#Non-Parent-Child-Communication)。而大多初学者以为 React 只能靠调用父组件的 callback，并且这种方式遇到组件层次太深的时候简直就是噩梦。其实 React 也可以通过[事件通信](http://www.alloyteam.com/2016/01/some-methods-of-reactjs-communication-between-components/)来解决问题，只不过需要额外 coding 或调用第三方插件，而 Vue 的核心库已实现了该功能。React 拥有丰富的生态圈，很多事情是大家一起完成的。
 ##ref or props##
 
 父组件可通过 ref 定位子组件并调用它的 api，也可通过 props 传递数据，实现父组件通知子组件，ref 和 props 这两种方式将决定组件的形态。在实际开发中，可能 Vue 先入为主，ref 也用的比较多，因为它在组件封装力度上确实有优势， api 可让组件更抽象、更关注自身的功能，不受外界影响。而后来转到 React 几乎都是用 props 通信，一开始还以为是 React 的问题，甚至还得出了这样的结论：React 组件像是 UI 组件，Vue 组件更接近对象。直到最近看了 Facebook 文档，才发现另有蹊跷。先看看之前用 Vue ，我是如何去创建一个列表（List）组件，并实现列表数据的新增和删除，以及调用方式。
@@ -252,6 +252,39 @@ ReactDOM.render(
 
 ![举个栗子](https://cloud.githubusercontent.com/assets/13991287/22298063/2b702c1c-e35a-11e6-81e5-503452256480.png)
 
-基于上面的栗子，比如现在列表数据多啦！需要在列表顶部显示有多少条数据！我们可以定义一个显示条数的组件 Counts。如按照 Vue 的实现方法（好吧！这里好像要黑 Vue，其实是我一开始的误解），Counts 组件需监听两个事件（plus & minus），在事件回调中去更新条数，当 List 进行 add() 或 delete() 需触发 plus / minus，且不说这 Counts 组件复杂，这事件流也很难追溯，代码放久了看着都晕晕的！但是 React 的实现方法就没有这个问题，Counts 组件只需要一个 count 属性代表显示的数字，父组件把 this.state.list.length 作为参数传入即可，这种方式逻辑更清晰，扩展能力更强。虽然 React 的这种方式，在不需要组件共享数据的时候，调用起来很繁琐，但业务这种事情真的很难说，很多意想不到的情况都会发生，基于上面的栗子，指不定后期还要新加一个分页组件呢，所以我也悬崖勒马，以后不管在 Vue 还是 React，尽量少用 ref 去调用子组件。当组件之间有共享数据时，该数据与操作该数据的逻辑，应该放在最接近它们的父组件，这样组件的逻辑会更合理，更清晰！
+基于上面的栗子，比如现在列表数据多啦！需要在列表顶部显示有多少条数据！我们可以定义一个显示条数的组件 Counts。
+#####Vuejs#####
+```js
+var bus = new Vue()
+var Count = Vue.extend({
+  data: function(){
+    return{
+      count: 0
+    }
+  },
+  template: '<span>{{count}}</span>',
+  mounted: function(){
+    var self = this
+    bus.$on('plus', function(){
+      self.count++
+    })
+    bus.$on('minus', function(){
+      self.count--
+    })
+  }
+})
+Vue.component('Count', Count)
+```
+#####Reactjs#####
+```jsx
+let Count = (props)=>{
+  return (
+    <span>
+      {props.count}
+    </span>
+  );
+}
+```
+如按照 Vue 的实现方法（好吧！这里好像要黑 Vue，其实是我一开始的误解），Counts 组件需监听两个事件（plus & minus），在事件回调中去更新条数，当 List 进行 add() 或 delete() 需触发 plus / minus，且不说这 Counts 组件复杂，这事件流也很难追溯，代码放久了看着都晕晕的！但是 React 把共享数据抽离了，Counts 组件只需要一个 count 属性代表显示的数字，父组件把 this.state.list.length 作为参数传入即可，这种方式逻辑更清晰，扩展能力更强。虽然 React 的这种方式，在不需要组件共享数据的时候，调用起来很繁琐，但业务这种事情真的很难说，很多意想不到的情况都会发生，基于上面的栗子，指不定后期还要新加一个分页组件呢，所以我也悬崖勒马，以后不管在 Vue 还是 React，尽量少用 ref 去调用子组件。当组件之间有共享数据时，该数据与操作该数据的逻辑，应该放在最接近它们的父组件，这样组件的逻辑会更合理，更清晰！
 
 最后我想说，这两个框架在方向上有差异，Vue 偏向大而全，把很多特性都封装进核心库，React 则不同，React 核心库只是 React 生态圈很小一部分，只负责 view 这个层面，其它事情都是由大家一起完成，所以 React 会有这么多插件。而我也相信，人多力量大！
